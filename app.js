@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const grid = document.querySelector(".grid");
     let width = 16;
     let bombAmount = 40;
-    if (window.screen.width <= 250) {
+    if (window.screen.width <= 500) {
         width = 8;
         bombAmount = 12;
     }
@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const isRightEdge = i % width == width - 1;
 
             if (squares[i].classList.contains("valid")) {
+                // left
                 if (
                     i > 0 &&
                     !isLeftEdge &&
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
                     total++;
 
+                // top right
                 if (
                     i > width - 1 &&
                     !isRightEdge &&
@@ -61,9 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
                     total++;
 
+                // top
                 if (i > width && squares[i - width].classList.contains("bomb"))
                     total++;
 
+                // top left
                 if (
                     i > width + 1 &&
                     !isLeftEdge &&
@@ -71,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
                     total++;
 
+                // right
                 if (
                     i < width * width - 1 &&
                     !isRightEdge &&
@@ -78,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
                     total++;
 
+                // bottom left
                 if (
                     i < width * (width - 1) &&
                     !isLeftEdge &&
@@ -85,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
                     total++;
 
+                // bottom right
                 if (
                     i < width * (width - 1) - 2 &&
                     !isRightEdge &&
@@ -92,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
                     total++;
 
+                // bottom
                 if (
                     i < width * (width - 1) - 1 &&
                     squares[i + width].classList.contains("bomb")
@@ -149,6 +157,33 @@ document.addEventListener("DOMContentLoaded", () => {
             let total = square.getAttribute("data");
             if (total != 0) {
                 square.classList.add("checked");
+                let colour = "";
+                switch (total * 1) {
+                    case 1:
+                        colour = "blue";
+                        break;
+                    case 2:
+                        colour = "green";
+                        break;
+                    case 3:
+                        colour = "red";
+                        break;
+                    case 4:
+                        colour = "dark-blue";
+                        break;
+                    case 5:
+                        colour = "brown";
+                        break;
+                    case 6:
+                        colour = "cyan";
+                        break;
+                    case 8:
+                        colour = "grey";
+                        break;
+                    default:
+                        break;
+                }
+                square.classList.add(colour);
                 square.innerText = total;
                 return;
             }
