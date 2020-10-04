@@ -130,9 +130,13 @@ body {
 
 @media only screen and (max-width: 500px) {
     body {
-        margin-top: 15px;
-        font-size: 15px;
+        margin-top: 0;
+        font-size: 13px;
         background-color: rgb(221, 237, 250);
+    }
+
+    .head {
+        margin: 7.5px;
     }
 
     .grid {
@@ -140,15 +144,21 @@ body {
         background-color: rgb(206, 206, 206);
         border-radius: 3px;
 
-        height: 300px;
-        width: 200px;
+        height: 480px;
+        width: 320px;
         display: flex;
         flex-wrap: wrap;
     }
 
     .grid div {
-        height: 25px;
-        width: 25px;
+        height: 40px;
+        width: 40px;
         border-radius: 2px;
+    }
+
+    .dashboard {
+        margin: 10px;
+        display: flex;
+        justify-content: center;
     }
 }
