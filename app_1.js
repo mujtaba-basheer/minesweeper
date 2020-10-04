@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.body.onload = () => {
     const grid = document.querySelector(".grid");
     let width = 16;
     let height = 16;
@@ -309,4 +309,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
         isGameOver = true;
     };
-});
+};
