@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.querySelector(".grid");
     let width = 16;
+    let height = 16;
     let bombAmount = 40;
     if (window.screen.width <= 500) {
         width = 8;
-        bombAmount = 12;
+        height = 12;
+        bombAmount = 15;
     }
     let flags = 0;
     let squares = [];
@@ -15,13 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const createBoard = () => {
         // get shuffled array with random bombs
         const bombsArray = Array(bombAmount).fill("bomb");
-        const emptyArray = Array(width * width - bombAmount).fill("valid");
+        const emptyArray = Array(width * height - bombAmount).fill("valid");
         const gamesArray = emptyArray.concat(bombsArray);
         const shuffledArray = gamesArray.sort(
             () => Math.floor(Math.random() * 100) % 2 == 0
         );
 
-        for (let i = 0; i < width * width; i++) {
+        for (let i = 0; i < width * height; i++) {
             const square = document.createElement("div");
             square.setAttribute("id", i);
             square.classList.add(shuffledArray[i]);
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // right
                 if (
-                    i < width * width - 1 &&
+                    i < width * height - 1 &&
                     !isRightEdge &&
                     squares[i + 1].classList.contains("bomb")
                 )
@@ -85,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // bottom left
                 if (
-                    i < width * (width - 1) &&
+                    i < width * (height - 1) &&
                     !isLeftEdge &&
                     squares[i - 1 + width].classList.contains("bomb")
                 )
@@ -93,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // bottom right
                 if (
-                    i < width * (width - 1) - 2 &&
+                    i < width * (height - 1) - 2 &&
                     !isRightEdge &&
                     squares[i + 1 + width].classList.contains("bomb")
                 )
@@ -101,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // bottom
                 if (
-                    i < width * (width - 1) - 1 &&
+                    i < width * (height - 1) - 1 &&
                     squares[i + width].classList.contains("bomb")
                 )
                     total++;
@@ -137,7 +139,10 @@ document.addEventListener("DOMContentLoaded", () => {
             flags--;
         }
 
-        document.getElementById("bombs_count").innerText = bombAmount - flags;
+        if (!isGameOver) {
+            document.getElementById("bombs_count").innerText =
+                bombAmount - flags;
+        }
     };
 
     // click on square actons
