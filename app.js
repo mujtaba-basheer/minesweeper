@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         height = 12;
         bombAmount = 15;
     }
+    let total = width * height;
     let flags = 0;
     let squares = [];
     let isGameOver = false;
@@ -22,7 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // get shuffled array with random bombs
         const bombsArray = Array(bombAmount).fill("bomb");
         const emptyArray = Array(width * height - bombAmount).fill("valid");
-        const gamesArray = emptyArray.concat(bombsArray);
+        const gamesArray = emptyArray
+            .slice(0, parseInt((total - bombAmount) / 2))
+            .concat(bombsArray.slice(0, parseInt(bombAmount / 2)))
+            .concat(emptyArray.slice(parseInt((total - bombAmount) / 2)))
+            .concat(bombsArray.slice(parseInt(bombAmount / 2)));
+        console.log(gamesArray);
         const shuffledArray = gamesArray.sort(
             () => Math.floor(Math.random() * 100) % 2 == 0
         );
