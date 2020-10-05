@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".head").addEventListener("click", () => {
         createBoard();
     });
+    let mySound;
 
     // create board
     const createBoard = () => {
@@ -256,6 +257,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 10);
     };
 
+    const playSound = async (status) => {
+        const audioFile = status == 1 ? "winner.mp3" : "sad.mp3";
+        const context = new AudioContext();
+        const source = context.createBufferSource();
+        const request = new XMLHttpRequest();
+        request.open("GET", audioFile, true);
+        request.responseType = "arraybuffer";
+
+        request.onload = () => {
+            const audioData = request.response;
+            console.log(audioData);
+
+            context.decodeAudioData(audioData, (buffer) => {
+                source.buffer = buffer;
+                source.connect(context.destination);
+                source.start(0);
+            });
+        };
+
+        request.send();
+    };
+
     const gameOver = () => {
         onGameOver(0);
 
@@ -299,6 +322,8 @@ document.addEventListener("DOMContentLoaded", () => {
             status == 0 ? "BOOM! Game Over 😟" : "Congratulations! YOU WON 🏆";
         const msg = document.querySelector(".message");
         msg.innerText = message;
+
+        playSound(status);
 
         const retry = document.querySelector(".retry__text");
         retry.addEventListener("click", () => {
