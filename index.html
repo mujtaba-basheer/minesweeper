@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minesweeper</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/icon" href="favicon.ico" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="head">Minesweeper</div>
-    <div class="grid"></div>
+    <div class="layout">
+      <div class="config sound">
+        <img
+          class="sound-icon"
+          src="https://img.icons8.com/wired/64/000000/high-volume.png"
+        />
+      </div>
+      <div class="grid"></div>
+      <div class="config theme">
+        <img src="https://img.icons8.com/wired/64/000000/flash-light.png" />
+      </div>
+    </div>
     <div class="dashboard">
-        <div class="message">
-            Mines Left: <span id="bombs_count"></span>
-        </div>
+      <div class="message">Mines Left: <span id="bombs_count"></span></div>
     </div>
     <div class="retry">
-        <p class="retry__text hide"></p>
+      <p class="retry__text hide"></p>
     </div>
+    <audio src="sad.mp3"></audio>
 
+    <a href="https://icons8.com/icon/48414/mute">Mute icon by Icons8</a>
     <script type="text/javascript" src="app.js"></script>
-
-</body>
-
+  </body>
 </html>
