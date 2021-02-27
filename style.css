@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+:root {
+  --header-text: rgb(255, 255, 169);
+  --header-background: rgb(195, 195, 195);
+  --header-border: rgb(148, 148, 148);
+}
+
 body {
   margin-top: 10px;
   display: flex;
@@ -18,13 +24,13 @@ body {
   margin: 0 auto;
   text-align: center;
   margin: 15px;
-  border: 2px solid rgb(148, 148, 148);
-  background-color: rgb(195, 195, 195);
+  border: 2px solid var(--header-border);
+  background-color: var(--header-background);
   border-radius: 5px;
   font-weight: 900;
   padding: 5px;
   width: min-content;
-  color: rgb(255, 255, 169);
+  color: var(--header-text);
 }
 
 .layout {

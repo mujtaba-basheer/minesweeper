@@ -23,11 +23,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const audioContext = new AudioContext();
   const audioElement = document.querySelector("audio");
   const track = audioContext.createMediaElementSource(audioElement);
-  document.querySelector(".sound-icon").addEventListener("click", (e) => {
+  document.querySelector(".sound-icon").addEventListener("click", function (e) {
     const toUrl = (type) =>
       `https://img.icons8.com/wired/64/000000/${type}.png`;
     e.target.src = isSoundAllowed ? toUrl("mute") : toUrl("high-volume");
+
+    if (audioContext.state === "suspended") audioContext.resume();
+
     isSoundAllowed = !isSoundAllowed;
+
+    if (isGameOver) {
+      track.connect(audioContext.destination);
+      if (isSoundAllowed) audioElement.play();
+      else audioElement.pause();
+    }
   });
 
   // create board
