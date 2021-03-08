@@ -13,9 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let squares = [];
   let isGameOver = false;
   document.getElementById("bombs_count").innerText = bombAmount - flags;
-  document.querySelector(".head").addEventListener("click", () => {
-    createBoard();
-  });
 
   // sound settings
   let isSoundAllowed = true;
@@ -140,6 +137,32 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   createBoard();
+
+  // refresh board
+  const refresh = () => {
+    width = 16;
+    height = 16;
+    bombAmount = 40;
+    if (window.screen.width <= 500) {
+      width = 8;
+      height = 12;
+      bombAmount = 15;
+    }
+    total = width * height;
+    flags = 0;
+    squares = [];
+    isGameOver = false;
+
+    grid.innerHTML = "";
+    const msg = document.querySelector(".message");
+    msg.innerHTML = `Mines Left: <span id="bombs_count"></span>`;
+    document.getElementById("bombs_count").innerText = bombAmount - flags;
+    document.querySelector(".retry__text").classList.add("hide");
+
+    createBoard();
+  };
+
+  document.querySelector(".head").addEventListener("click", refresh);
 
   // add flag with right click
   const addFlag = (square) => {
@@ -332,11 +355,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isSoundAllowed) playSound(status);
 
     const retry = document.querySelector(".retry__text");
-    retry.addEventListener("click", () => {
-      window.location.reload();
-    });
     retry.classList.remove("hide");
     retry.innerText = "New Game ▶";
+    retry.addEventListener("click", refresh);
 
     isGameOver = true;
   };

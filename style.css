@@ -149,6 +149,7 @@ body {
 
 a {
   font-size: 0.1rem;
+  display: none;
 }
 
 @media only screen and (max-width: 500px) {
